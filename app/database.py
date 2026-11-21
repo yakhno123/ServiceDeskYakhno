@@ -1,3 +1,4 @@
+import os
 from collections.abc import Generator
 
 from sqlalchemy import create_engine
@@ -8,7 +9,8 @@ class Base(DeclarativeBase):
     pass
 
 
-DATABASE_URL = "sqlite:///./project.db"
+DATABASE_PATH = os.getenv("DATABASE_PATH", "./project.db")
+DATABASE_URL = f"sqlite:///{DATABASE_PATH}"
 engine = create_engine(DATABASE_URL, echo=False, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
