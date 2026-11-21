@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Нова заявка | ServiceDesk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4">
+    <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 w-full max-w-lg shadow-2xl">
+        <h2 class="text-2xl font-bold mb-6 text-indigo-400">Створити заявку на ремонт</h2>
+
+        <form method="POST" action="/client/orders/create" enctype="multipart/form-data" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-1">Коротка назва (що зламалося?)</label>
+                <input type="text" name="title" required class="w-full bg-slate-700 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Наприклад: Не вмикається iPhone 13">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Детальний опис проблеми</label>
+                <textarea name="description" required rows="4" class="w-full bg-slate-700 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Опишіть, що сталося..."></textarea>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Бажана дата завершення (необов'язково)</label>
+                <input type="datetime-local" name="deadline_str" class="w-full bg-slate-700 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-300">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Фото поломки (необов'язково)</label>
+                <input type="file" name="photo" accept="image/*" class="w-full bg-slate-700 p-2 rounded-lg text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500">
+            </div>
+
+            <div class="flex gap-4 pt-4">
+                <a href="/client/dashboard" class="w-1/3 text-center bg-slate-700 hover:bg-slate-600 py-3 rounded-lg transition">Скасувати</a>
+                <button type="submit" class="w-2/3 bg-indigo-600 hover:bg-indigo-500 font-semibold py-3 rounded-lg transition">Відправити заявку</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
