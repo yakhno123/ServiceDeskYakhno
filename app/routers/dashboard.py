@@ -53,8 +53,10 @@ async def save_client_telegram(request: Request, telegram_id: str = Form(...), d
         try:
             user.telegram_id = telegram_id
             db.commit()
+            request.session["toast"] = {"message": "Telegram ID успішно збережено!", "type": "success"}
         except IntegrityError:
             db.rollback()
+            request.session["toast"] = {"message": "Цей Telegram ID вже використовується.", "type": "error"}
     return RedirectResponse(url="/client/dashboard", status_code=303)
 
 
@@ -104,6 +106,7 @@ async def create_order(
     db.add(new_order)
     db.commit()
 
+    request.session["toast"] = {"message": "Заявку успішно створено!", "type": "success"}
     return RedirectResponse(url="/client/dashboard", status_code=303)
 
 
@@ -251,6 +254,7 @@ async def update_order(
 
         db.commit()
 
+
         if order.client.telegram_id:
             status_ukr = {
                 "pending": "Чекає на обробку ⏳",
@@ -275,6 +279,7 @@ async def update_order(
                 except Exception as e:
                     print(f"Помилка Telegram: {e}")
 
+    request.session["toast"] = {"message": "Статус заявки успішно оновлено!", "type": "success"}
     return RedirectResponse(url="/admin/dashboard", status_code=303)
 
 
@@ -290,6 +295,7 @@ async def delete_order(order_id: int, request: Request, db: Session = Depends(ge
         db.query(Message).filter(Message.order_id == order_id).delete()
         db.delete(order)
         db.commit()
+        request.session["toast"] = {"message": "Заявку видалено!", "type": "success"}
 
     return RedirectResponse(url="/admin/dashboard", status_code=303)
 
@@ -314,6 +320,8 @@ async def add_note(
     )
     db.add(new_note)
     db.commit()
+
+    request.session["toast"] = {"message": "Нотатку додано!", "type": "success"}
 
     if user_role == "supplier":
         return RedirectResponse(url="/supplier/dashboard", status_code=303)

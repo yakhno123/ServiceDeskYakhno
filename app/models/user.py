@@ -25,7 +25,6 @@ class User(Base):
     role = Column(Enum(UserRole), default=UserRole.CLIENT, nullable=False)
     is_active = Column(Boolean, default=True)
 
-    # Поле без unique=True (как мы договаривались ранее)
     telegram_id = Column(String(50), nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)

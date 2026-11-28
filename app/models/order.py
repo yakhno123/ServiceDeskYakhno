@@ -22,7 +22,7 @@ class Order(Base):
     status = Column(Enum(OrderStatus), default=OrderStatus.PENDING, nullable=False)
     admin_reply = Column(Text, nullable=True)
 
-    # Нове поле для нагадування
+
     deadline = Column(DateTime, nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)

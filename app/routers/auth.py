@@ -53,6 +53,9 @@ async def register_user(
     db.commit()
     db.refresh(new_user)
 
+
+    request.session["toast"] = {"message": "Реєстрація успішна! Тепер ви можете увійти.", "type": "success"}
+
     return RedirectResponse(url="/auth/login", status_code=303)
 
 
@@ -79,6 +82,9 @@ async def login_user(
 
     request.session["user_id"] = user.id
     request.session["user_role"] = user.role.value
+
+
+    request.session["toast"] = {"message": f"Вітаємо, {user.username}!", "type": "success"}
 
     if user.role.value == "admin":
         return RedirectResponse(url="/admin/dashboard", status_code=303)

@@ -1,0 +1,43 @@
+{% if request.session.get('toast') %}
+    {% set toast = request.session.pop('toast') %}
+    <div id="toast-message" class="fixed top-5 right-5 z-50 animate-toast">
+        <div class="flex items-center gap-3 px-5 py-4 rounded-xl shadow-2xl border backdrop-blur-md
+            {% if toast.type == 'success' %} bg-green-500/20 border-green-500/30 text-green-400
+            {% elif toast.type == 'error' %} bg-red-500/20 border-red-500/30 text-red-400
+            {% else %} bg-indigo-500/20 border-indigo-500/30 text-indigo-400 {% endif %}">
+
+            <i class="fa-solid text-lg
+                {% if toast.type == 'success' %}fa-check-circle
+                {% elif toast.type == 'error' %}fa-exclamation-circle
+                {% else %}fa-info-circle{% endif %}"></i>
+
+            <span class="font-medium">{{ toast.message }}</span>
+
+            <button onclick="document.getElementById('toast-message').remove()" class="ml-4 opacity-50 hover:opacity-100 transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+
+    <style>
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-toast {
+            animation: slideDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+    </style>
+
+    <script>
+        setTimeout(() => {
+            const toast = document.getElementById('toast-message');
+            if (toast) {
+                toast.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                setTimeout(() => toast.remove(), 500);
+            }
+        }, 4000);
+    </script>
+{% endif %}

@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-slate-900 text-white min-h-screen">
+
+    {% include 'toast.html' %}
+
     <nav class="bg-slate-800 p-4 flex justify-between items-center shadow-lg">
         <h1 class="text-xl font-bold text-indigo-400"><i class="fa-solid fa-shield-halved mr-2"></i>ServiceDesk Plus (Адмін)</h1>
         <div class="flex items-center gap-4">
@@ -17,7 +20,7 @@
 
     <div class="max-w-6xl mx-auto p-6">
 
-        <!-- БЛОК ЗВІТІВ -->
+
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex items-center justify-between">
                 <div>
@@ -121,7 +124,7 @@
                                 </div>
                             {% endif %}
 
-                            <!-- ЧАТ З КЛІЄНТОМ -->
+
                             <div class="mt-6 pt-4 border-t border-slate-700">
                                 <h4 class="text-sm font-bold text-slate-400 mb-2"><i class="fa-solid fa-comments mr-1"></i> Чат з клієнтом:</h4>
 
@@ -154,7 +157,7 @@
                                 </form>
                             </div>
 
-                            <!-- НОТАТКИ МАЙСТРА -->
+
                             <div class="mt-6 pt-4 border-t border-slate-700">
                                 <h4 class="text-sm font-bold text-slate-400 mb-2"><i class="fa-solid fa-clipboard-list mr-1"></i> Нотатки майстра (внутрішні):</h4>
 
@@ -177,7 +180,7 @@
                             </div>
                         </div>
 
-                        <!-- ПРАВА КОЛОНКА -->
+
                         <div class="bg-slate-900 p-4 rounded-lg border border-slate-700 h-fit">
                             <form method="POST" action="/admin/orders/{{ order.id }}/update" enctype="multipart/form-data" class="space-y-4">
                                 <div>
